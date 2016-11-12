@@ -1,4 +1,4 @@
-$(function() {
+$(document).ready(function() {
   var chart = Highcharts.chart('container', {
     chart: {
       type: 'column'
@@ -38,15 +38,14 @@ $(function() {
     series: [{"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}, {"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}, {"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}, {"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}, {"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}]
   });
 
-  
+  var dateTweeted;
 
 
   for (var i = 0; i < 10; i++) {
-    $("#tweets-container").append('<div class="tweet-container"><button class="follow-button">Follow</button><img class="profile-pic" height="48" width="48" src="' + data[i].user.profile_image_url + '" /><label class="user">' + data[i].user.name + '</label><br /><label class="alias">@' + data[i].user.screen_name + '</label><br /><label class="user-tweet">' + data[i].text + '</label></div>');
+     dateTweeted = new Date(data[i].created_at);
+    $("#tweets-container").append('<div class="tweet-container"><button class="follow-button">Follow</button><img class="profile-pic" height="48" width="48" src="' + data[i].user.profile_image_url + '" /><label class="user">' + data[i].user.name + '</label><br /><label class="alias">@' + data[i].user.screen_name + '</label><br /><label class="user-tweet">' + data[i].text + '</label><label class="tweet-time">' + data[i].created_at + '</label></div>');
     $(".profile-pic").on("error", function(){
         $(this).attr('src', 'img/twitter-logo.png');
     });
   }
-
-  
 });
