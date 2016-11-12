@@ -35,8 +35,11 @@ $(function() {
         borderWidth: 0
       }
     },
-    series: [{"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}]
+    series: [{"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}, {"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}, {"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}, {"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}, {"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}]
   });
 
-  console.log(corpus);
+  console.log(data.length);
+  for (var i = 0; i < 10; i++) {
+    $("#pic-container").append('<div class="tweet-container"><button class="btn-primary follow-button">Follow</button><img src="' + data[i].user.profile_image_url + '" alt="Substitute Photo" /><label class="user">' + data[i].user.name + '</label><br /><label class="alias">@' + data[i].user.screen_name + '</label></div>');
+  }
 });

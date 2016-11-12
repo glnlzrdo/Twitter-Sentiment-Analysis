@@ -1,0 +1,44 @@
+.tweet-container {
+border-width: 1px;
+border-style: solid;
+border-color: #0084b4;
+width: 400px;
+height: 120px;
+margin: 20px;
+margin-top: 0;
+padding-top: 0;
+display: inline-table;
+box-shadow: 2px 2px 2px #0084b4;
+}
+
+img {
+  padding: 10px;
+  float: left;
+}
+
+.user {
+  font-weight: bold;
+  font-family: arial;
+  font-size: 18px;
+}
+
+.alias {
+  font-weight: lighter;
+  font-family: arial;
+  font-size: 12px;
+}
+
+.follow-button {
+  background-color: white;
+  border-color: #00aced;
+  border-radius: 5px;
+  border-width: thin;
+  color: #00aced;
+  float: right;
+  margin: 30px;
+  height: 35px;
+  width: 100px;
+  border-style: solid;
+  font-family: arial;
+  font-weight: bold;
+}
