@@ -38,8 +38,15 @@ $(function() {
     series: [{"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}, {"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}, {"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}, {"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}, {"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}]
   });
 
-  console.log(data.length);
+  
+
+
   for (var i = 0; i < 10; i++) {
-    $("#tweets-container").append('<div class="tweet-container"><button class="follow-button">Follow</button><img src="' + data[i].user.profile_image_url + '" alt="Substitute Photo" /><label class="user">' + data[i].user.name + '</label><br /><label class="alias">@' + data[i].user.screen_name + '</label><br /><label class="user-tweet">' + data[i].text + '</label></div>');
+    $("#tweets-container").append('<div class="tweet-container"><button class="follow-button">Follow</button><img class="profile-pic" height="48" width="48" src="' + data[i].user.profile_image_url + '" /><label class="user">' + data[i].user.name + '</label><br /><label class="alias">@' + data[i].user.screen_name + '</label><br /><label class="user-tweet">' + data[i].text + '</label></div>');
+    $(".profile-pic").on("error", function(){
+        $(this).attr('src', 'img/twitter-logo.png');
+    });
   }
+
+  
 });

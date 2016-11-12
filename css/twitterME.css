@@ -1,10 +1,13 @@
 #container {
+  clear: right;
   float: right;
-  width: 1000px;
+  padding: 50px;
+  width: 600px;
 }
 #tweets-container {
   padding: 100px;
 }
+
 
 .tweet-container {
 border-width: 1px;
@@ -12,15 +15,20 @@ border-style: solid;
 border-color: #0084b4;
 border-radius: 5px;
 width: 600px;
-height: 120px;
+height: 80px;
 margin: 20px;
 margin-top: 0;
 padding: 0;
-display: table;
+overflow: hidden;
 box-shadow: 2px 2px 2px #0084b4;
 }
 
-img {
+
+.tweet-container:hover {
+  display: table;
+}
+
+img.profile-pic {
   margin: 20px;
   float: left;
 }
@@ -29,6 +37,8 @@ img {
   font-weight: bold;
   font-family: arial;
   font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 0px;
 }
 
 .alias {
@@ -59,4 +69,70 @@ img {
 
 .user-tweet {
   margin: 20px;
+}
+
+.main-div {
+  min-width: 960px;
+  height: auto;
+}
+
+.home-div {
+  margin-top: 100px;
+  margin-right: 50px;
+  width: 400px;
+  height: 400px;
+  float: right;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  box-shadow: 0px 0px 5px #00aced;
+}
+
+.twitter-logo {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.top-color {
+  background-color: #556B2F;
+  height: 20px;
+}
+
+.chart-style {
+  min-width: 960px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+button.test {
+	border: none;
+	background: #3a7999;
+	color: #f2f2f2;
+	padding: 10px;
+	font-size: 18px;
+	border-radius: 5px;
+	position: relative;
+	box-sizing: border-box;
+	transition: all 500ms ease; 
+}
+
+button.test:before {
+	content:'';
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 0px;
+	height: 42px;
+	background: rgba(255,255,255,0.3);
+	border-radius: 5px;
+	transition: all 2s ease;
+} 
+
+button.test:hover:before {
+	width: 100%;
 }
