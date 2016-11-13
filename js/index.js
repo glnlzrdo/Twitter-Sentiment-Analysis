@@ -1,63 +1,93 @@
-$(document).ready(function() {
-  // var chart = Highcharts.chart('container', {
-  //   chart: {
-  //     type: 'column'
-  //   },
-  //   title: {
-  //     text: 'Population of Countries'
-  //   },
-  //   subtitle: {
-  //     text: 'Source: WorldClimate.com'
-  //   },
-  //   xAxis: {
-  //     categories: [
-  //       '2016 Population'
-  //     ],
-  //     crosshair: true
-  //   },
-  //   yAxis: {
-  //     min: 0,
-  //     title: {
-  //       text: 'Population Count'
-  //     }
-  //   },
-  //   tooltip: {
-  //     headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-  //     pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-  //       '<td style="padding:0"><b>{point.y:.1f} people</b></td></tr>',
-  //     footerFormat: '</table>',
-  //     shared: true,
-  //     useHTML: true
-  //   },
-  //   plotOptions: {
-  //     column: {
-  //       pointPadding: 0.2,
-  //       borderWidth: 0
-  //     }
-  //   },
-  //   series: [{"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}, {"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}, {"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}, {"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}, {"name": "Glenn","data":[500,800]}, {"name": "Charm","data":[700,500]}]
-  // });
-
-  var dateTweeted;
+(function(document, window, $, corpus, data) {
+  'use strict';
 
 
-  for (var i = 0; i < 10; i++) {
-     dateTweeted = new Date(data[i].created_at);
-    $("#tweets-container").append('<div class="tweet-container"><button class="follow-button">Follow</button><img class="profile-pic" height="48" width="48" src="' + data[i].user.profile_image_url + '" /><label class="user">' + data[i].user.name + '</label><br /><label class="alias">@' + data[i].user.screen_name + '</label><br /><label class="user-tweet">' + data[i].text + '</label><label class="tweet-time">' + data[i].created_at + '</label></div>');
-    $(".profile-pic").on("error", function(){
-        $(this).attr('src', 'img/twitter-logo.png');
-    });
+  function computeSentiment(tweetStr, corpusData) {
+    // remove commonly encountered words
+    var filteredTweet = tweetStr
+                        .replace(/\B@[a-z0-9_-]+/gi,'') //remove twitter handles
+                        .toLowerCase() // normalize to lowercase
+                        .replace('rt','') // remove RTs if any
+                        .trim(); // remove trailing whitespaces
+
+    var wordArray = filteredTweet.split(' ');
+    var sentimentSum;
+    var corpusWords = Object.keys(corpusData); //transform corpus object to array of its keys
+
+    var sentimentArray = wordArray.map(function(word) {
+      return corpusWords.filter(function(corpus) {
+         return word.indexOf(corpus) > -1;
+      })
+      .reduce(function(a, b) {
+        return a.concat(b);
+      }, '');
+    })
+    .filter(function(arr) {
+      return arr.length > 0;
+    })
+    .map(function(word) {
+      return corpusData[word];
+    })
+    .reduce(function(a, b) {
+      return a + b;
+    }, 0);
+
+
+    return sentimentArray;
   }
 
-  $('#homePage').click(function() {
-    var target = $('#tweetPage');
-    target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-    if (target.length) {
-      $('html, body').animate({
-        scrollTop: target.offset().top
-      }, 1000);
-      return false;
+  function mapSentimentToIcon(sentiment) {
+    switch(sentiment) {
+      case 0 :
+      return ':|';
+      case sentiment < 0:
+      return ':(';
+      default:
+      return ':)';
+    }
+  };
+
+  window.computeSentiment  = computeSentiment;
+
+  $(document).ready(function() {
+    var dateTweeted;
+
+
+    for (var i = 0; i < 10; i++) {
+      dateTweeted = new Date(data[i].created_at);
+      var tweet = data[i];
+      var buttonStr = '<button class="follow-button">Follow</button>';
+      var imgStr = '<img class="profile-pic" height="48" width="48" src="' + tweet.user.profile_image_url + '" />';
+      var userNameStr = '<label class="user">' + tweet.user.name + '</label>';
+      var aliasStr = '<label class="alias">@' + tweet.user.screen_name + '</label>';
+
+      $("#tweets-container").append(
+        '<div class="tweet-container">'+
+          buttonStr+imgStr+userNameStr+'<br />'+
+          aliasStr+'<br />'+
+          '<label class="user-tweet">' + tweet.text + '</label>'+
+          '<label class="tweet-time">' + tweet.created_at + '</label>'+
+          '<div>' + mapSentimentToIcon(computeSentiment(tweet.text, corpus)) + '</div>' +
+        '</div>'
+      );
+
+      $(".profile-pic").on("error", function(){
+          $(this).attr('src', 'img/twitter-logo.png');
+      });
     }
 
+    // animated scrolling
+    $('#homePage').click(function() {
+      var target = $('#tweetPage');
+      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+      if (target.length) {
+        $('html, body').animate({
+          scrollTop: target.offset().top
+        }, 1000);
+        return false;
+      }
+
+    });
   });
-});
+
+}(document, window, $, window.corpus, window.data));
