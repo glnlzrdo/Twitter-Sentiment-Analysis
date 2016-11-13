@@ -119,5 +119,7 @@ button.test:hover:before {
 }
 
 .function-button {
-  border-radius: 0;
+  background-color: white;
+  border-color: #B0BEC5;
+  box-shadow: none;
 }
