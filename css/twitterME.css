@@ -120,6 +120,7 @@ button.test:hover:before {
 
 .function-button {
   background-color: white;
-  border-color: #B0BEC5;
-  box-shadow: none;
+  border: solid #B0BEC5;
+  border-width: thin;
+  font-family: Roboto, sans-serif;
 }
