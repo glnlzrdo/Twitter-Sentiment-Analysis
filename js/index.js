@@ -13,7 +13,7 @@
     var wordArray = filteredTweet.split(' ');
     var sentimentSum;
     var corpusWords = Object.keys(corpusData); //transform corpus object to array of its keys
-
+  
     var sentimentArray = wordArray.map(function(word) {
       return corpusWords.filter(function(corpus) {
          return word.indexOf(corpus) > -1;
@@ -39,43 +39,23 @@
   function mapSentimentToIcon(sentiment) {
 
     if(sentiment === 0) {
-      return ':|';
+      return 'img/neut.jpg';
     } else if (sentiment < 0) {
-      return ':(';
+      return 'img/sad.gif';
     } else {
-      return ':)';
+      return 'img/happy.gif';
     }
   };
 
   window.computeSentiment  = computeSentiment;
 
+ var tweetBatch = 0;
+
   $(document).ready(function() {
-    var dateTweeted;
 
-
-    for (var i = 0; i < 10; i++) {
-      dateTweeted = new Date(data[i].created_at);
-      var tweet = data[i];
-      var buttonStr = '<button class="follow-button">Follow</button>';
-      var imgStr = '<img class="profile-pic" height="48" width="48" src="' + tweet.user.profile_image_url + '" />';
-      var userNameStr = '<label class="user">' + tweet.user.name + '</label>';
-      var aliasStr = '<label class="alias">@' + tweet.user.screen_name + '</label>';
-
-      $("#tweets-container").append(
-        '<div class="tweet-container">'+
-          buttonStr+imgStr+userNameStr+'<br />'+
-          aliasStr+'<br />'+
-          '<label class="user-tweet">' + tweet.text + '</label>'+
-          '<label class="tweet-time">' + tweet.created_at + '</label>'+
-          '<div>' + mapSentimentToIcon(computeSentiment(tweet.text, corpus)) + '</div>' +
-        '</div>'
-      );
-
-      $(".profile-pic").on("error", function(){
-          $(this).attr('src', 'img/twitter-logo.png');
-      });
-    }
-
+    loadTweets();
+    tweetBatch = 10;
+    $("#tweetPage").append('<button class="loader">Next Tweets</button>');
     // animated scrolling
     $('#homePage').click(function() {
       var target = $('#tweetPage');
@@ -88,6 +68,42 @@
       }
 
     });
+
+    $('.loader').click(function() {      
+      $('div.tweet-container').remove();
+      loadTweets();
+      tweetBatch += 10;
+    });
   });
+
+function loadTweets() {
+  
+    for (var i = tweetBatch; i < (tweetBatch + 10); i++) {
+
+      var tweet = data[i];
+      var buttonStr = '<button class="follow-button">Follow</button>';
+      var sentiStr = '<div class="senti">' + 
+                        '<img height="80" width="80" src="' + mapSentimentToIcon(computeSentiment(tweet.text, corpus)) + '" />' +
+                      '</div>';
+      var imgStr = '<img class="profile-pic" height="48" width="48" src="' + tweet.user.profile_image_url + '" />';
+      var userNameStr = '<label class="user">' + tweet.user.name + '</label>';
+      var aliasStr = '<label class="alias">@' + tweet.user.screen_name + '</label>';
+
+      $("#tweets-container").append(
+        '<div class="tweet-container">'+
+          buttonStr+imgStr+userNameStr+'<br />'+
+          
+          aliasStr+'<br />'+
+          sentiStr +
+          '<label class="user-tweet">' + tweet.text + '</label>'+
+          '<label class="tweet-time">' + tweet.created_at + '</label>'+          
+        '</div>'        
+      );
+
+      $(".profile-pic").on("error", function(){
+          $(this).attr('src', 'img/twitter-logo.png');
+      });       
+    }    
+}
 
 }(document, window, $, window.corpus, window.data));
