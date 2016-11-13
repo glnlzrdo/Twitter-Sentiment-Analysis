@@ -117,9 +117,9 @@ function loadTweets() {
           $(this).attr('src', 'img/twitter-logo.png');
       });       
     } 
-    /*if (tweetBatch != 0) { 
+    if (tweetBatch != 0) { 
       navigateToTweets();   
-    }*/
+    }
 }
 
 }(document, window, $, window.corpus, window.data));
