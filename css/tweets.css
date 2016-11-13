@@ -1,0 +1,64 @@
+.tweet-container {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #0084b4;
+  border-radius: 5px;
+  width: 100%;
+  min-height: 80px;
+  margin: 20px 0;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 2px 2px 2px #0084b4;
+}
+
+
+.tweet-container {
+  display: block;
+}
+
+img.profile-pic {
+  margin: 20px;
+  float: left;
+}
+
+.user {
+  font-weight: bold;
+  font-family: arial;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+.alias {
+  font-weight: lighter;
+  font-family: arial;
+  font-size: 12px;
+}
+
+.follow-button {
+  background-color: white;
+  border-color: #00aced;
+  border-radius: 5px;
+  border-width: thin;
+  color: #00aced;
+  float: right;
+  margin: 20px;
+  height: 35px;
+  width: 100px;
+  border-style: solid;
+  font-family: arial;
+  font-weight: bold;
+}
+
+.follow-button:hover {
+  background-color: #00aced;
+  color: white;
+}
+
+.user-tweet {
+  margin: 20px;
+}
+
+.tweet-time {
+  margin-left: 20px;
+}
