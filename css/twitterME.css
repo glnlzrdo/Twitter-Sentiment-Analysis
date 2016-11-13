@@ -110,3 +110,14 @@ button.test:before {
 button.test:hover:before {
 	width: 100%;
 }
+
+.button-container {
+  width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.function-button {
+  border-radius: 0;
+}

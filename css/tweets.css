@@ -14,6 +14,7 @@
 
 .tweet-container {
   display: block;
+  position: relative;
 }
 
 img.profile-pic {
@@ -61,4 +62,10 @@ img.profile-pic {
 
 .tweet-time {
   margin-left: 20px;
+}
+
+.sentiment-icon {
+  position: absolute;
+  right: 10px;
+  bottom: -10px;
 }
