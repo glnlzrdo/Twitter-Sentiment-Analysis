@@ -37,12 +37,12 @@
   }
 
   function mapSentimentToIcon(sentiment) {
-    switch(sentiment) {
-      case 0 :
+
+    if(sentiment === 0) {
       return ':|';
-      case sentiment < 0:
+    } else if (sentiment < 0) {
       return ':(';
-      default:
+    } else {
       return ':)';
     }
   };
