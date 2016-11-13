@@ -35,7 +35,7 @@ img.profile-pic {
   font-size: 12px;
 }
 
-.follow-button {
+.follow-button, .loader, .loaderPrev {
   background-color: white;
   border-color: #00aced;
   border-radius: 5px;
@@ -50,7 +50,7 @@ img.profile-pic {
   font-weight: bold;
 }
 
-.follow-button:hover {
+.follow-button:hover, .loader:hover, .loaderPrev:hover {
   background-color: #00aced;
   color: white;
 }
@@ -70,22 +70,18 @@ img.profile-pic {
   margin-right: 20px;
 }
 
-.loader {
-  background-color: white;
-  border-color: #00aced;
-  border-radius: 5px;
-  border-width: thin;
-  color: #00aced;
-  margin: 20px;
-  margin-left: 45%;
-  height: 35px;
-  width: 100px;
-  border-style: solid;
-  font-family: arial;
-  font-weight: bold;
+.loader, .loaderPrev {
+  float: none;
+  width: 150px;
 }
 
-.loader:hover {
-  background-color: #00aced;
-  color: white;
+.navContainer {
+  width: 390px; 
+  margin: auto;  
+}
+
+.loaderPrev:disabled {
+ background-color: white;
+ color: darkgrey;
+ border-color: darkgrey;  
 }

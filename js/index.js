@@ -51,13 +51,34 @@
 
  var tweetBatch = 0;
 
-  $(document).ready(function() {
-
-    loadTweets();
-    tweetBatch = 10;
-    $("#tweetPage").append('<button class="loader">Next Tweets</button>');
+  $(document).ready(function() {    
+    loadTweets();    
+    $("#tweetPage").append('<div class="navContainer">' +
+          '<button class="loaderPrev">Previous 10 Tweets</button>' +
+          '<button class="loader">Next 10 Tweets</button>' +
+        '</div>');
+    $('.loaderPrev').prop('disabled', true);
     // animated scrolling
-    $('#homePage').click(function() {
+    $('#homePage').click(navigateToTweets);
+
+    $('.loader').click(function() {      
+      $('div.tweet-container').remove();
+      tweetBatch += 10;
+      loadTweets();
+       $('.loaderPrev').prop('disabled', false);
+    });
+
+    $('.loaderPrev').click(function() {      
+      $('div.tweet-container').remove();
+      tweetBatch -= 10;
+      loadTweets();
+      if (tweetBatch == 0) {
+         $('.loaderPrev').prop('disabled', true);
+      }
+    });
+  });
+
+function navigateToTweets() {
       var target = $('#tweetPage');
       target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
       if (target.length) {
@@ -67,17 +88,9 @@
         return false;
       }
 
-    });
-
-    $('.loader').click(function() {      
-      $('div.tweet-container').remove();
-      loadTweets();
-      tweetBatch += 10;
-    });
-  });
+    }  
 
 function loadTweets() {
-  
     for (var i = tweetBatch; i < (tweetBatch + 10); i++) {
 
       var tweet = data[i];
@@ -103,7 +116,10 @@ function loadTweets() {
       $(".profile-pic").on("error", function(){
           $(this).attr('src', 'img/twitter-logo.png');
       });       
-    }    
+    } 
+    if (tweetBatch != 0) { 
+      navigateToTweets();   
+    }
 }
 
 }(document, window, $, window.corpus, window.data));
