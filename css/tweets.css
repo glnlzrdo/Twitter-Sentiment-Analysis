@@ -56,9 +56,36 @@ img.profile-pic {
 }
 
 .user-tweet {
-  margin: 20px;
+  margin-left: 20px;
+  width: 450px;
 }
 
 .tweet-time {
   margin-left: 20px;
+}
+
+.senti {
+  clear: right;
+  float: right;
+  margin-right: 20px;
+}
+
+.loader {
+  background-color: white;
+  border-color: #00aced;
+  border-radius: 5px;
+  border-width: thin;
+  color: #00aced;
+  margin: 20px;
+  margin-left: 45%;
+  height: 35px;
+  width: 100px;
+  border-style: solid;
+  font-family: arial;
+  font-weight: bold;
+}
+
+.loader:hover {
+  background-color: #00aced;
+  color: white;
 }
