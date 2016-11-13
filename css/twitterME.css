@@ -4,79 +4,23 @@
   padding: 50px;
   width: 600px;
 }
+
 #tweets-container {
-  padding: 100px;
+  margin: 0 auto;
+  padding-top: 20px;
+  max-width: 600px;
 }
 
-
-.tweet-container {
-border-width: 1px;
-border-style: solid;
-border-color: #0084b4;
-border-radius: 5px;
-width: 600px;
-height: 80px;
-margin: 20px;
-margin-top: 0;
-padding: 0;
-overflow: hidden;
-box-shadow: 2px 2px 2px #0084b4;
-}
-
-
-.tweet-container:hover {
-  display: table;
-}
-
-img.profile-pic {
-  margin: 20px;
-  float: left;
-}
-
-.user {
-  font-weight: bold;
-  font-family: arial;
-  font-size: 18px;
-  margin-top: 20px;
-  margin-bottom: 0px;
-}
-
-.alias {
-  font-weight: lighter;
-  font-family: arial;
-  font-size: 12px;
-}
-
-.follow-button {
-  background-color: white;
-  border-color: #00aced;
-  border-radius: 5px;
-  border-width: thin;
-  color: #00aced;
-  float: right;
-  margin: 20px;
-  height: 35px;
-  width: 100px;
-  border-style: solid;
-  font-family: arial;
-  font-weight: bold;
-}
-
-.follow-button:hover {
-  background-color: #00aced;
-  color: white;
-}
-
-.user-tweet {
-  margin: 20px;
-}
-
-.main-div {
+.main {
   min-width: 960px;
   height: auto;
 }
 
-.home-div {
+
+.home {
+  position: relative;
+}
+/*.home {
   margin-top: 100px;
   margin-right: 50px;
   width: 400px;
@@ -87,6 +31,35 @@ img.profile-pic {
   align-items: center;
   position: relative;
   box-shadow: 0px 0px 5px #00aced;
+}*/
+
+.page {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.title-container {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: 35%;
+  font-size: 100px;
+  font-family: 'Open Sans Condensed', sans-serif;
+  color: #00aced;
+  opacity: .2;
+  line-height: 80px;
+}
+
+.twitter {
+  margin-left:-200px;
+}
+
+.sentiment {
+  margin-left: 100px;
+}
+
+.analysis {
+  margin-left: -175px;
 }
 
 .twitter-logo {
@@ -96,10 +69,11 @@ img.profile-pic {
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
+    opacity: .2;
 }
 
 .top-color {
-  background-color: #556B2F;
+  background-color: #B0BEC5;
   height: 20px;
 }
 
@@ -118,7 +92,7 @@ button.test {
 	border-radius: 5px;
 	position: relative;
 	box-sizing: border-box;
-	transition: all 500ms ease; 
+	transition: all 500ms ease;
 }
 
 button.test:before {
@@ -131,7 +105,7 @@ button.test:before {
 	background: rgba(255,255,255,0.3);
 	border-radius: 5px;
 	transition: all 2s ease;
-} 
+}
 
 button.test:hover:before {
 	width: 100%;
