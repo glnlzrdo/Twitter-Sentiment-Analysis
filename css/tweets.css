@@ -35,22 +35,25 @@ img.profile-pic {
   font-size: 12px;
 }
 
-.follow-button, .loader, .loaderPrev {
+.loader, .loaderPrev, .toggle-button button {
   background-color: white;
   border-color: #00aced;
   border-radius: 5px;
   border-width: thin;
   color: #00aced;
-  float: right;
   margin: 20px;
   height: 35px;
-  width: 100px;
+  width: 150px;
   border-style: solid;
   font-family: arial;
   font-weight: bold;
 }
 
-.follow-button:hover, .loader:hover, .loaderPrev:hover {
+.toggle-button {
+  margin-left: 25%;
+}
+
+.toggle-button button:hover, .loader:hover, .loaderPrev:hover {
   background-color: #00aced;
   color: white;
 }
@@ -70,18 +73,15 @@ img.profile-pic {
   margin-right: 20px;
 }
 
-.loader, .loaderPrev {
-  float: none;
-  width: 150px;
-}
+
 
 .navContainer {
-  width: 390px; 
-  margin: auto;  
+  width: 390px;
+  margin: auto;
 }
 
 .loaderPrev:disabled {
  background-color: white;
  color: darkgrey;
- border-color: darkgrey;  
+ border-color: darkgrey;
 }

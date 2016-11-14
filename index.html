@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/twitterME.css">
-    <link rel="stylesheet" href="./css/tweets.css" media="screen" title="no title">
+    <link rel="stylesheet" href="./css/tweets.css" media="screen" title="no title">    
     <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
 
   </head>
@@ -24,7 +24,10 @@
         <div class="top-color"></div>
         <div class="navContainer">
           <button class="loaderPrev">Previous 10 Tweets</button>
-          <button class="loader">Next 10 Tweets</button>
+          <button class="loader">Next 10 Tweets</button>          
+          <div class="toggle-button">
+              <button class="toggleMood">Toggle Mood</button>
+          </div>
         </div>
         <div id="tweets-container"></div>
       </div>
@@ -34,8 +37,8 @@
 
 
     <script src="./js/jquery.min.js"></script>
-    <script src="./data/corpus.json" typ="application/json"></script>
-    <script src="./data/data_3min.json" typ="application/json"></script>
+    <script src="./data/corpus.json"></script>
+    <script src="./data/data_3min.json"></script>
     <script src="./js/index.js"></script>
   </body>
 </html>

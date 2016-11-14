@@ -3,47 +3,28 @@
 
 
   function computeSentiment(tweetStr, corpusData) {
-    // remove commonly encountered words
-    var filteredTweet = tweetStr
-                        .replace(/\B@[a-z0-9_-]+/gi,'') //remove twitter handles
-                        .toLowerCase() // normalize to lowercase
-                        .replace('rt','') // remove RTs if any
-                        .trim(); // remove trailing whitespaces
+    var tweetWords = tweetStr.split(" ");
+    var count = 0, repeated = 0;
 
-    var wordArray = filteredTweet.split(' ');
-    var sentimentSum;
-    var corpusWords = Object.keys(corpusData); //transform corpus object to array of its keys
-  
-    var sentimentArray = wordArray.map(function(word) {
-      return corpusWords.filter(function(corpus) {
-         return word.indexOf(corpus) > -1;
-      })
-      .reduce(function(a, b) {
-        return a.concat(b);
-      }, '');
-    })
-    .filter(function(arr) {
-      return arr.length > 0;
-    })
-    .map(function(word) {
-      return corpusData[word];
-    })
-    .reduce(function(a, b) {
-      return a + b;
-    }, 0);
+    for (var i in tweetWords){
+      var isSenti = corpusData[ tweetWords[i].toLowerCase().replace(/[^\w\s]|_/g, "").replace(/\s+/g, " ") ];
 
-
-    return sentimentArray;
+      if(isSenti != undefined){
+        count += isSenti;
+        repeated++;
+      }
+    }    
+    return count / repeated;
   }
 
   function mapSentimentToIcon(sentiment) {
 
-    if(sentiment === 0) {
-      return 'img/neut.jpg';
+    if(sentiment > 0) {
+      return 'img/happy.gif';
     } else if (sentiment < 0) {
       return 'img/sad.gif';
     } else {
-      return 'img/happy.gif';
+      return 'img/neut.jpg';
     }
   };
 
@@ -51,9 +32,12 @@
 
  var tweetBatch = 0;
 
-  $(document).ready(function() {    
-    loadTweets();    
+  $(document).ready(function() {
+    loadTweets();
     $("#tweetPage").append('<div class="navContainer">' +
+          '<div class="toggle-button">' +
+              '<button class="toggleMood">Toggle Mood</button>' +
+          '</div>' +          
           '<button class="loaderPrev">Previous 10 Tweets</button>' +
           '<button class="loader">Next 10 Tweets</button>' +
         '</div>');
@@ -61,14 +45,14 @@
     // animated scrolling
     $('#homePage').click(navigateToTweets);
 
-    $('.loader').click(function() {      
+    $('.loader').click(function() {
       $('div.tweet-container').remove();
       tweetBatch += 10;
       loadTweets();
        $('.loaderPrev').prop('disabled', false);
     });
 
-    $('.loaderPrev').click(function() {      
+    $('.loaderPrev').click(function() {
       $('div.tweet-container').remove();
       tweetBatch -= 10;
       loadTweets();
@@ -76,6 +60,19 @@
          $('.loaderPrev').prop('disabled', true);
       }
     });
+
+    var isMoodActive = 1;
+    $(".toggleMood").click(function() {      
+        if (isMoodActive == 1) {
+          $(".senti").css('display', 'none');
+          isMoodActive = 0;
+        } else {
+          $(".senti").css('display', 'unset');
+          isMoodActive = 1;
+        }      
+    });
+  
+
   });
 
 function navigateToTweets() {
@@ -88,14 +85,14 @@ function navigateToTweets() {
         return false;
       }
 
-    }  
+    }
 
 function loadTweets() {
     for (var i = tweetBatch; i < (tweetBatch + 10); i++) {
 
       var tweet = data[i];
-      var buttonStr = '<button class="follow-button">Follow</button>';
-      var sentiStr = '<div class="senti">' + 
+
+      var sentiStr = '<div class="senti">' +
                         '<img height="80" width="80" src="' + mapSentimentToIcon(computeSentiment(tweet.text, corpus)) + '" />' +
                       '</div>';
       var imgStr = '<img class="profile-pic" height="48" width="48" src="' + tweet.user.profile_image_url + '" />';
@@ -104,22 +101,21 @@ function loadTweets() {
 
       $("#tweets-container").append(
         '<div class="tweet-container">'+
-          buttonStr+imgStr+userNameStr+'<br />'+
-          
-          aliasStr+'<br />'+
           sentiStr +
+          imgStr+userNameStr+'<br />'+
+          aliasStr+'<br />'+          
           '<label class="user-tweet">' + tweet.text + '</label>'+
-          '<label class="tweet-time">' + tweet.created_at + '</label>'+          
-        '</div>'        
+          '<label class="tweet-time">' + tweet.created_at + '</label>'+
+        '</div>'
       );
 
       $(".profile-pic").on("error", function(){
           $(this).attr('src', 'img/twitter-logo.png');
-      });       
-    } 
-    /*if (tweetBatch != 0) { 
-      navigateToTweets();   
-    }*/
+      });
+    }
+    if (tweetBatch != 0) {
+      navigateToTweets();
+    }
 }
 
 }(document, window, $, window.corpus, window.data));
