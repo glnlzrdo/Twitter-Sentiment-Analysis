@@ -6,50 +6,31 @@
     var MAX_PAGES = Math.ceil(data.length / PAGE_SIZE);
 
     function computeSentiment(tweetStr, corpusData) {
-        // remove commonly encountered words
-        var filteredTweet = tweetStr
-            .replace(/\B@[a-z0-9_-]+/gi, '') //remove twitter handles
-            .toLowerCase() // normalize to lowercase
-            .replace('rt', '') // remove RTs if any
-            .trim(); // remove trailing whitespaces
+      var tweetWords = tweetStr.split(" ");
+      var count = 0, repeated = 0;
 
-        var wordArray = filteredTweet.split(' ');
-        var sentimentSum;
-        var corpusWords = Object.keys(corpusData); //transform corpus object to array of its keys
+      for (var i in tweetWords){
+        var isSenti = corpusData[ tweetWords[i].toLowerCase().replace(/[^\w\s]|_/g, "").replace(/\s+/g, " ") ];
 
-        var sentimentArray = wordArray.map(function(word) {
-                return corpusWords.filter(function(corpus) {
-                        return word.indexOf(corpus) > -1;
-                    })
-                    .reduce(function(a, b) {
-                        return a.concat(b);
-                    }, '');
-            })
-            .filter(function(arr) {
-                return arr.length > 0;
-            })
-            .map(function(word) {
-                console.log(word);
-                return corpusData[word];
-            })
-            .reduce(function(a, b) {
-                return a + b;
-            }, 0);
-
-
-        return sentimentArray;
+        if(isSenti != undefined){
+          count += isSenti;
+          repeated++;
+        }
+      }
+      return count / repeated;
     }
 
     function mapSentimentToIcon(sentiment) {
 
-        if (sentiment === 0) {
-            return 'meh';
+        if (sentiment > 0) {
+            return 'happy';
         } else if (sentiment < 0) {
             return 'sad';
         } else {
-            return 'happy';
+            return 'meh';
 
         }
+
     };
 
     function renderTweets(tweetsArray, pageNumber, pageSize) {
