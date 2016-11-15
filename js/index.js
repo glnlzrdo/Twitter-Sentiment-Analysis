@@ -30,7 +30,6 @@
             return 'meh';
 
         }
-
     };
 
     function renderTweets(tweetsArray, pageNumber, pageSize) {
@@ -43,14 +42,12 @@
             // render only when tweet is defined
             if (tweet) {
                 var dateTweeted = new Date(tweet.created_at);
-                var buttonStr = '<button class="follow-button">Follow</button>';
                 var imgStr = '<img class="profile-pic" height="48" width="48" src="' + tweet.user.profile_image_url + '" />';
                 var userNameStr = '<label class="user">' + tweet.user.name + '</label>';
                 var aliasStr = '<label class="alias">@' + tweet.user.screen_name + '</label>';
 
                 tweetsContainer.append(
-                    '<div class="tweet-container">' +
-                    buttonStr + imgStr + userNameStr + '<br />' +
+                    '<div class="tweet-container">' + imgStr + userNameStr + '<br />' +
                     aliasStr + '<br />' +
                     '<label class="user-tweet">' + tweet.text + '</label>' +
                     '<label class="tweet-time">' + tweet.created_at + '</label>' +
@@ -106,6 +103,21 @@
             console.log('AA');
             $(this).attr('disabled', true);
         }
+    })
+
+    var toggle = $('#toggleButton');
+    var showIcons = true;
+
+    toggle.click(function() {
+      if(showIcons) {
+        $('.sentiment-icon').hide();
+        toggle.html('Show');
+        showIcons = false;
+      } else {
+        $('.sentiment-icon').show();
+        toggle.html('Hide');
+        showIcons = true;
+      }
     })
 
     scroll($('#homePage'));
